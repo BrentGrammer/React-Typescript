@@ -1,15 +1,35 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Todo, fetchTodos } from "../actions";
+import { StoreState } from "../reducers";
 
+/**
+ * In the interface for AppProps, add the properties that will be wired up via mapStateToProps and mapDispatchToProps
+ */
 interface AppProps {
-  color?: string;
+  todos: Todo[];
+  fetchTodos(): any;
 }
-// interface AppState {
-//   counter: number;
-// }
-class App extends React.Component<AppProps /*AppState*/> {
+
+// _App is used to avoid a name collision when connecting the component with the name App - you want to avoid using default exports
+// with TypeScript
+class _App extends React.Component<AppProps> {
   render() {
     return <div></div>;
   }
 }
 
-export default App;
+/**
+ * Use the StoreState interface created to annotate the state argument passed in here.
+ * Also add the return annotation for mapStateToProps to match the props and types returned
+ */
+const mapStateToProps = (state: StoreState): { todos: Todo[] } => {
+  return {
+    todos: state.todos
+  };
+};
+
+export const App = connect(
+  mapStateToProps,
+  { fetchTodos }
+)(_App);

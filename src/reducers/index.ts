@@ -9,7 +9,7 @@ import { Todo } from "../actions";
  * It prevents unintentional returning of incorrect data from a reducer
  */
 // Create an interface to describe the entire state of the store
-interface StoreState {
+export interface StoreState {
   todos: Todo[];
 }
 
