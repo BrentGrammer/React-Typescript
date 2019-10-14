@@ -4,10 +4,15 @@ import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
 
 // define interface for the axios response (the shape of the data returned by the api):
-interface Todo {
+export interface Todo {
   id: number;
   title: string;
   completed: boolean;
+}
+
+export interface FetchTodosAction {
+  type: ActionTypes.fetchTodos;
+  payload: Todo[]; // in this case the Todo shaped objects array returned from the api request via axios
 }
 
 export const fetchTodos = () => {
@@ -16,7 +21,7 @@ export const fetchTodos = () => {
     const response = await axios.get<Todo[]>(
       "https://jsonplaceholder.typicode.com/todos"
     );
-    dispatch({
+    dispatch<FetchTodosAction>({
       type: ActionTypes.fetchTodos,
       payload: response.data
     });
