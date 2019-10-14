@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+// import enum with action type constants
+import { ActionTypes } from "./types";
 
 // define interface for the axios response (the shape of the data returned by the api):
 interface Todo {
@@ -15,7 +17,7 @@ export const fetchTodos = () => {
       "https://jsonplaceholder.typicode.com/todos"
     );
     dispatch({
-      type: "FETCH_TODOS",
+      type: ActionTypes.fetchTodos,
       payload: response.data
     });
   };
