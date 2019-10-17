@@ -1,3 +1,5 @@
+import { FetchTodosAction, DeleteTodoAction } from "./todos";
+
 /**
  * enum of all the redux action types.
  *
@@ -15,3 +17,10 @@ export enum ActionTypes {
   fetchTodos,
   deleteTodo
 }
+
+/**
+ * Define the type union of all action types here to use as the annotated parameter type for action in the reducer.
+ *
+ * You would keep chaining on additional action interfaces to this union type
+ */
+export type Action = FetchTodosAction | DeleteTodoAction;

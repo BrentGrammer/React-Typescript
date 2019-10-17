@@ -21,7 +21,7 @@ export interface FetchTodosAction {
   payload: Todo[]; // in this case the Todo shaped objects array returned from the api request via axios
 }
 
-export interface DeleteTodosAction {
+export interface DeleteTodoAction {
   type: ActionTypes.deleteTodo;
   payload: number;
 }
@@ -39,7 +39,7 @@ export const fetchTodos = () => {
   };
 };
 
-export const deleteTodo = (id: number): DeleteTodosAction => {
+export const deleteTodo = (id: number): DeleteTodoAction | DeleteTodoAction => {
   return {
     type: ActionTypes.deleteTodo,
     payload: id
