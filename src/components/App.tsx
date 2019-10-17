@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Todo, fetchTodos } from "../actions";
+import { Todo, fetchTodos, deleteTodo } from "../actions";
 import { StoreState } from "../reducers";
 
 /**
@@ -8,7 +8,8 @@ import { StoreState } from "../reducers";
  */
 interface AppProps {
   todos: Todo[];
-  fetchTodos(): any;
+  fetchTodos: typeof fetchTodos;
+  deleteTodo: typeof deleteTodo;
 }
 
 // _App is used to avoid a name collision when connecting the component with the name App - you want to avoid using default exports
@@ -17,11 +18,18 @@ class _App extends React.Component<AppProps> {
   onButtonClick = (): void => {
     this.props.fetchTodos();
   };
+  onTodoClick = (id: number): void => {
+    this.props.deleteTodo(id);
+  };
 
   // Returning an array of jsx elements - use JSX.Element type
   renderList(): JSX.Element[] {
-    return this.props.todos.map(todo => {
-      return <div key={todo.id}>{todo.title}</div>;
+    return this.props.todos.map((todo: Todo) => {
+      return (
+        <div onClick={() => this.onTodoClick(todo.id)} key={todo.id}>
+          {todo.title}
+        </div>
+      );
     });
   }
 
@@ -47,5 +55,5 @@ const mapStateToProps = (state: StoreState): { todos: Todo[] } => {
 
 export const App = connect(
   mapStateToProps,
-  { fetchTodos }
+  { fetchTodos, deleteTodo }
 )(_App);
