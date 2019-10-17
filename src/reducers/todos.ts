@@ -6,6 +6,7 @@ import { Todo, Action, ActionTypes } from "../actions";
 /**
  *  Specify the type of return value for the state, and then set it to a default value.
  *  The action annotation is using the Action union type created for all action interfaces
+ *  Action is the actual action type (i.e. the object with type and payload property)
  */
 export const todosReducer = (state: Todo[] = [], action: Action) => {
   switch (action.type) {
