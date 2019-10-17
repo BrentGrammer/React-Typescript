@@ -12,6 +12,8 @@ export const todosReducer = (state: Todo[] = [], action: Action) => {
     // use enum created for action types:
     case ActionTypes.fetchTodos:
       return action.payload;
+    case ActionTypes.deleteTodo:
+      return state.filter((todo: Todo) => todo.id !== action.payload);
     default:
       return state;
   }
