@@ -17,11 +17,29 @@ interface AppProps {
   deleteTodo: typeof deleteTodo;
 }
 
+/**
+ * Create an interface for local component state and pass it in as the second arg to Recat.Component generic.
+ */
+interface AppState {
+  fetching: boolean;
+}
+
 // _App is used to avoid a name collision when connecting the component with the name App - you want to avoid using default exports
 // with TypeScript
-class _App extends React.Component<AppProps> {
+class _App extends React.Component<AppProps, AppState> {
+  state = { fetching: false };
+
+  componentDidUpdate(prevProps: AppProps): void {
+    const doneFetching =
+      prevProps.todos.length === 0 && this.props.todos.length;
+    if (doneFetching) {
+      this.setState({ fetching: false });
+    }
+  }
+
   onButtonClick = (): void => {
     this.props.fetchTodos();
+    this.setState({ fetching: true });
   };
   onTodoClick = (id: number): void => {
     this.props.deleteTodo(id);
@@ -42,6 +60,7 @@ class _App extends React.Component<AppProps> {
     return (
       <div>
         <button onClick={this.onButtonClick}>fetch</button>
+        {this.state.fetching ? "LOADING" : null}
         {this.renderList()}
       </div>
     );
