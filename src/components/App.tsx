@@ -5,10 +5,15 @@ import { StoreState } from "../reducers";
 
 /**
  * In the interface for AppProps, add the properties that will be wired up via mapStateToProps and mapDispatchToProps
+ * The types of the action creators imported and put on props through mapDispatchToProps will be annotated with the
+ * typeof <imported action creator> type.
+ *
+ * NOTE: TypeScript currently does not have a way to annotate an async redux thunk action which returns a function, so the
+ *       annotation of Function should be used as a work around on props that are redux thunk actions
  */
 interface AppProps {
   todos: Todo[];
-  fetchTodos: typeof fetchTodos;
+  fetchTodos: Function;
   deleteTodo: typeof deleteTodo;
 }
 
