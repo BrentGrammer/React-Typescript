@@ -14,8 +14,24 @@ interface AppProps {
 // _App is used to avoid a name collision when connecting the component with the name App - you want to avoid using default exports
 // with TypeScript
 class _App extends React.Component<AppProps> {
+  onButtonClick = (): void => {
+    this.props.fetchTodos();
+  };
+
+  // Returning an array of jsx elements - use JSX.Element type
+  renderList(): JSX.Element[] {
+    return this.props.todos.map(todo => {
+      return <div key={todo.id}>{todo.title}</div>;
+    });
+  }
+
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <button onClick={this.onButtonClick}>fetch</button>
+        {this.renderList()}
+      </div>
+    );
   }
 }
 
