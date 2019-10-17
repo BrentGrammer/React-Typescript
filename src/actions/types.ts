@@ -12,5 +12,6 @@
  * This works because redux only needs some unique value that is the type and it doesn't necessarily have to be a string
  */
 export enum ActionTypes {
-  fetchTodos
+  fetchTodos,
+  deleteTodo
 }
